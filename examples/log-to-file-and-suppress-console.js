@@ -5,9 +5,6 @@ const logger = new ACL({
 	logLevel: 0, // Suppress console logs
 	outputFilename: "app.log", // Specify the file to save logs
 	outputFilenameLogLevel: 1, // Log all levels to file
-	includeTimestamps: true, // Include timestamps in the logs
-	includeCallerInfo: false, // Optional: disable caller info if not needed
-	includeMemoryUsage: false, // Optional: disable memory usage if not needed
 });
 
 // Use the logger as usual

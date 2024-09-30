@@ -163,8 +163,10 @@ logger.dir(sampleObject);
 
 ## Examples
 
+- [Advanced Example](/examples/advanced-example.js)
 - [Custom Colors](/examples/custom-colors.js)
 - [Log to File and Suppress Console](/examples/log-to-file-and-suppress-console.js)
+- [Terminate on Fatal](/examples/terminate-on-fatal.js)
 
 ## Contribute
 
