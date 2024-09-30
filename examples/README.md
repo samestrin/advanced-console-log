@@ -1,6 +1,4 @@
-# advanced-console-log examples
-
-## Examples
+# Advanced Console Log Examples
 
 - [Advanced Example](advanced-example.js)
 - [Custom Colors](custom-colors.js)

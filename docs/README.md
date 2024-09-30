@@ -1,4 +1,4 @@
-# advanced-console-log documentation
+# Advanced Console Log Documentation
 
 - [Asynchronous Logging](async-logging.md)
 - [Color Customization](color-customization.md)
