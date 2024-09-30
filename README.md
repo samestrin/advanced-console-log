@@ -66,7 +66,7 @@ npm install advanced-console-log
 
 ## Usage
 
-First import `advanced-console-log` into your application using require:
+After installation, import `advanced-console-log` into your application using require:
 
 ```js
 const ACL = require("advanced-console-log");
@@ -165,6 +165,7 @@ logger.dir(sampleObject);
 
 - [Advanced Example](/examples/advanced-example.js)
 - [Custom Colors](/examples/custom-colors.js)
+- [Generate Report](/examples/generate-report.js)
 - [Log to File and Suppress Console](/examples/log-to-file-and-suppress-console.js)
 - [Terminate on Fatal](/examples/terminate-on-fatal.js)
 
