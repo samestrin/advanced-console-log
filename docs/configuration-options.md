@@ -6,19 +6,17 @@ The `advanced-console-log` module offers a wide range of configuration options t
 
 ### Core Configuration Options
 
-| **Option**               | **Type**  | **Default** | **Description**                                                                                                           |
-| ------------------------ | --------- | ----------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `logLevel`               | `number`  | `1`         | Sets the console [log level](log-levels.md). Accepts values from `0` (debug) to `5` (fatal).                              |
-| `outputFilename`         | `string`  | `null`      | Specifies the filename for file-based logging. If empty, file logging is disabled.                                        |
-| `outputFilenameLogLevel` | `number`  | `1`         | Sets the [log level](log-levels.md) for file logging. Accepts values from `0` (debug) to `5` (fatal).                     |
-| `terminateOnFatal`       | `boolean` | `false`     | If `true`, terminates the current process upon a `fatal` message.                                                         |
-| `includeTimestamps`      | `boolean` | `true`      | Determines whether to include timestamps in log messages.                                                                 |
-| `includeMemoryUsage`     | `boolean` | `true`      | If `true`, includes memory usage information in log messages.                                                             |
-| `generateReport`         | `boolean` | `false`     | If `true`, generates a summary report showing the number of times each log method was called.                             |
-| `memoryCheckFrequency`   | `number`  | `10`        | Defines the frequency of memory checks.                                                                                   |
-| `memoryDisplayMode`      | `number`  | `1`         | Defines the format for memory usage display. (1 is `MB`, 2 is `%`, and 3 is both).                                        |
-| `extraSpace`             | `boolean` | `false`     | If `true`, adds an extra space after each logging message.                                                                |
-| `color`                  | `object`  | `{}`        | Allows custom color configuration for log levels. See **[Color Customization](color-customization.md)** for more details. |
+| **Option**             | **Type**  | **Default** | **Description**                                                                                                           |
+| ---------------------- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `logLevel`             | `number`  | `1`         | Sets the console [log level](log-levels.md). Accepts values from `0` (debug) to `5` (fatal).                              |
+| `terminateOnFatal`     | `boolean` | `false`     | If `true`, terminates the current process upon a `fatal` message.                                                         |
+| `includeTimestamps`    | `boolean` | `true`      | Determines whether to include timestamps in log messages.                                                                 |
+| `includeMemoryUsage`   | `boolean` | `true`      | If `true`, includes memory usage information in log messages.                                                             |
+| `generateReport`       | `boolean` | `false`     | If `true`, generates a summary report showing the number of times each log method was called.                             |
+| `memoryCheckFrequency` | `number`  | `10`        | Defines the frequency of memory checks.                                                                                   |
+| `memoryDisplayMode`    | `number`  | `1`         | Defines the format for memory usage display. (1 is `MB`, 2 is `%`, and 3 is both).                                        |
+| `extraSpace`           | `boolean` | `false`     | If `true`, adds an extra space after each logging message.                                                                |
+| `color`                | `object`  | `{}`        | Allows custom color configuration for log levels. See **[Color Customization](color-customization.md)** for more details. |
 
 ### Timestamp and Caller Information Configuration
 
@@ -32,10 +30,12 @@ The `advanced-console-log` module offers a wide range of configuration options t
 
 ### File Logging Configuration
 
-| **Option**         | **Type** | **Default** | **Description**                                                                                    |
-| ------------------ | -------- | ----------- | -------------------------------------------------------------------------------------------------- |
-| `maxLogFileSizeMB` | `number` | `10`        | Defines the maximum log file size in MB. When the file size is reached, a new log file is created. |
-| `maxLogFiles`      | `number` | `5`         | Limits the number of log files retained. Older files are deleted when the limit is exceeded.       |
+| **Option**               | **Type** | **Default** | **Description**                                                                                       |
+| ------------------------ | -------- | ----------- | ----------------------------------------------------------------------------------------------------- |
+| `outputFilename`         | `string` | `null`      | Specifies the filename for file-based logging. If empty, file logging is disabled.                    |
+| `outputFilenameLogLevel` | `number` | `1`         | Sets the [log level](log-levels.md) for file logging. Accepts values from `0` (debug) to `5` (fatal). |
+| `maxLogFileSizeMB`       | `number` | `10`        | Defines the maximum log file size in MB. When the file size is reached, a new log file is created.    |
+| `maxLogFiles`            | `number` | `5`         | Limits the number of log files retained. Older files are deleted when the limit is exceeded.          |
 
 ### Performance and Async Configuration
 
