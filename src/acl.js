@@ -129,7 +129,13 @@ class ACL {
 		};
 		this.memoryUsage = "";
 		this.cwd = process.cwd();
+
 		this.currentFileName = __filename.replace(this.cwd, "").replace(/^\//, "");
+
+		// Call the method to write the header if outputFilename is defined
+		if (this.outputFilename) {
+			this.writeHeader();
+		}
 	}
 
 	/**
@@ -155,6 +161,38 @@ class ACL {
 			ACL.instance = new ACL(config);
 		}
 		return ACL.instance;
+	}
+
+	/**
+	 * Writes a custom header to the log file at the start of every new run.
+	 *
+	 * The header includes the current file name (`this.currentFileName`) and a timestamp
+	 * in the format defined by `this.timestampFormat`. It also inserts a separator line
+	 * (`-----------------------------`) for better visual distinction of log sessions.
+	 *
+	 * Example Header Format:
+	 * ```
+	 * /path/to/currentFile.js (YYYY-MM-DD HH:mm:ss.SSS):
+	 * -----------------------------
+	 * ```
+	 *
+	 * This method is called automatically during initialization if `outputFilename` is defined.
+	 * If the file cannot be written, an error message is printed to `stderr`.
+	 *
+	 * @throws {Error} If writing to the log file fails, logs an error message to `stderr`.
+	 */
+	writeHeader() {
+		const scriptName = require.main ? require.main.filename : process.argv[1];
+		const header = `\n${ACL.getCurrentTimestamp(
+			"MM-DD-YYYY HH:mm:ss.SSS"
+		)} ${scriptName}\n\n`;
+		try {
+			fs.appendFileSync(this.outputFilename, header, "utf8");
+		} catch (err) {
+			process.stderr.write(
+				`Failed to write header to log file: ${err.message}\n`
+			);
+		}
 	}
 
 	/**
@@ -234,17 +272,14 @@ class ACL {
 	 * @returns {boolean} - Whether to log to console.
 	 */
 	shouldLogToConsole(condition, level) {
-		console.log(this.logLevel, condition, level);
 		if (
 			this.logLevel === 0 ||
 			(typeof condition === "boolean" && !condition) ||
 			(this.logLevel === 2 && level < 2) ||
 			(this.logLevel === 3 && level < 3)
 		) {
-			console.log("shouldLogToConsole", "false");
 			return false;
 		}
-		console.log("shouldLogToConsole", "true");
 		return true;
 	}
 
