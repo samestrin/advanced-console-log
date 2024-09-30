@@ -53,7 +53,7 @@ First import `advanced-console-log` into your application using require:
 const ACL = require("advanced-console-log");
 ```
 
-Then you can get a _single_ instance of ACL (recommended), created with your custom configuration options.
+Then you can get a _single_ instance of ACL (recommended), created with your custom [configuration options](docs/configuration-options.md).
 
 ```js
 const logger = ACL.getInstance({
@@ -67,7 +67,7 @@ const logger = ACL.getInstance({
 });
 ```
 
-or create a new ACL instance, using your custom configuration options.
+or create a new ACL instance, using your custom [configuration options](docs/configuration-options.md).
 
 ```js
 const logger = new ACL({
@@ -99,6 +99,10 @@ logger.log(showLog, "This is an log message");
 If `generateReport` is set to `true`, you can generate a detailed report at the end of the application.
 
 ```js
+const logger = new ACL({
+	generateReport: true, // Enable log method call reporting
+});
+// Perform some operations
 logger.report();
 ```
 
