@@ -49,29 +49,28 @@ class ACL {
 	 */
 	constructor(config = {}) {
 		// Logging level settings
-		this.logLevel = config.logLevel || 1;
+		this.logLevel = typeof config.logLevel === "number" ? config.logLevel : 1;
 
 		// File logging options
 		this.outputFilename = config.outputFilename || null;
-		this.outputFilenameLogLevel =
-			config.outputFilenameLogLevel || this.logLevel;
+		this.outputFilenameLogLevel = config.outputFilenameLogLevel ?? 1;
 
 		// Include timestamps in log messages
 		this.includeTimestamps = config.includeTimestamps !== false;
 
 		// Memory usage settings
 		this.includeMemoryUsage = config.includeMemoryUsage || false;
-		this.memoryCheckFrequency = config.memoryCheckFrequency || 10;
-		this.memoryDisplayMode = config.memoryDisplayMode || 1;
+		this.memoryCheckFrequency = config.memoryCheckFrequency ?? 10; // Accept 0 values
+		this.memoryDisplayMode = config.memoryDisplayMode ?? 1; // Accept 0 values
 
 		// Caller info settings
 		this.includeCallerInfo = config.includeCallerInfo || false;
-		this.callerInfoLevel = config.callerInfoLevel || 2; // Default to warn and above
-		this.callerInfoDisplayMode = config.callerInfoDisplayMode || 1;
+		this.callerInfoLevel = config.callerInfoLevel ?? 2; // Accept 0 values
+		this.callerInfoDisplayMode = config.callerInfoDisplayMode ?? 1; // Accept 0 values
 
 		// Inline caller info settings
 		this.includeInlineCallerInfo = !!config.includeInlineCallerInfo;
-		this.inlineCallerInfoLevel = config.inlineCallerInfoLevel || 1;
+		this.inlineCallerInfoLevel = config.inlineCallerInfoLevel ?? 1; // Accept 0 values
 
 		// Include stack trace in error and fatal messages
 		this.includeStackTrace = !!config.includeStackTrace;
@@ -235,14 +234,17 @@ class ACL {
 	 * @returns {boolean} - Whether to log to console.
 	 */
 	shouldLogToConsole(condition, level) {
+		console.log(this.logLevel, condition, level);
 		if (
 			this.logLevel === 0 ||
 			(typeof condition === "boolean" && !condition) ||
 			(this.logLevel === 2 && level < 2) ||
 			(this.logLevel === 3 && level < 3)
 		) {
+			console.log("shouldLogToConsole", "false");
 			return false;
 		}
+		console.log("shouldLogToConsole", "true");
 		return true;
 	}
 
