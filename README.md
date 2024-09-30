@@ -16,14 +16,13 @@ A customizable logger module for Node.js applications, supporting console and fi
 - **Caller Information**: Includes caller information (file, function, line, and column) in log messages based on log level and configuration.
 - **Inline Caller Information**: Displays inline caller information within log messages for quick debugging reference.
 - **Conditional Logging**: Allows log messages to be conditionally logged based on boolean values.
-- **Asynchronous Logging**: Supports async versions of all log methods (`debugAsync`, `logAsync`, `infoAsync`, etc.) for non-blocking operations.
+- **Asynchronous Logging**: Supports async versions of all log methods for non-blocking operations.
 - **Timers and Performance Measurement**: Provides methods to start, stop, and measure elapsed time using high-resolution timers (`time`, `timeEnd`, `startTimer`, `stopTimer`).
 - **Detailed Reports**: Generates a report detailing the number of times each log method was called, with percentages.
 - **Fatal Logging and Process Termination**: Optionally terminates the application upon a fatal log message.
 - **Pretty Printing of Objects**: Includes a `dir` method for pretty printing complex objects similar to `console.dir`.
 - **Stack Tracing**: Supports stack tracing with the `trace` method, similar to `console.trace`.
 - **Custom Color Configuration**: Allows custom color settings for each log level to override default colors.
-- **Text Formatting Without Colors**: Formats log output for file logging by stripping out ANSI color codes.
 - **Singleton Pattern**: Implements a singleton pattern to ensure only one instance of the logger is created.
 - **Advanced Configuration Options**: Provides extensive configuration options such as memory display modes, caller info inclusion levels, and more.
 
@@ -54,7 +53,7 @@ First import `advanced-console-log` into your application using require:
 const ACL = require("advanced-console-log");
 ```
 
-Get a _single_ instance of the ACL (recommended), setting your custom configuration options.
+Then you can get a _single_ instance of ACL (recommended), created with your custom configuration options.
 
 ```js
 const logger = ACL.getInstance({
@@ -68,7 +67,7 @@ const logger = ACL.getInstance({
 });
 ```
 
-or create a new instance of ACL, setting your custom configuration options.
+or create a new ACL instance, using your custom configuration options.
 
 ```js
 const logger = new ACL({
