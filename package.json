@@ -1,0 +1,32 @@
+{
+  "name": "advanced-console-log",
+  "version": "0.0.1",
+  "description": "A customizable logger module for Node.js applications, supporting console and file logging with various levels, colors, and additional features like memory usage and caller information.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samestrin/advanced-console-log.git"
+  },
+  "keywords": [
+    "console.log",
+    "log",
+    "logging",
+    "logger",
+    "advanced",
+    "logging",
+    "file",
+    "logging"
+  ],
+  "author": "Sam Estrin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samestrin/advanced-console-log/issues"
+  },
+  "homepage": "https://github.com/samestrin/advanced-console-log#readme"
+}
