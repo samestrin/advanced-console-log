@@ -4,9 +4,9 @@
 
 ![Version 0.0.2](https://img.shields.io/badge/Version-0.0.2-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Built with Node.js](https://img.shields.io/badge/Built%20with-Node.js-green)](https://nodejs.org/)
 
-![Advanced Console Log](https://samestrin.github.io/media/advanced-console-log/advanced-console-log.png)
-
 A customizable logger module for Node.js applications, supporting console and file logging with various levels, colors, and additional features like memory usage and caller information.
+
+![Advanced Console Log](https://samestrin.github.io/media/advanced-console-log/advanced-console-log.png)
 
 ## Features
 
