@@ -1,12 +1,14 @@
 // src/acl.js
-const path = require("path");
 
 /**
  * ACL class for logging messages with various levels and features.
  * @module ACL
  */
 
+const path = require("path");
 const fs = require("fs");
+const util = require("util");
+
 const { COLORS } = require("../lib/constants");
 const { formatArgs, stripAnsiCodes } = require("../lib/utils");
 const {
@@ -16,7 +18,6 @@ const {
 const { handleLogFileRotation } = require("../lib/logFiles");
 const { getCallerInfo, getInlineCallerInfo } = require("../lib/stackUtils");
 const { startTimer, stopTimer, getTimer } = require("../lib/timerUtils");
-const util = require("util");
 
 /**
  * Class representing a logger with multiple features like console/file logging,
