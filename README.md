@@ -10,23 +10,39 @@ A customizable logger module for Node.js applications, supporting console and fi
 
 ## Features
 
+### Core Logging Features
+
+- **Advanced Configuration Options**: Provides extensive configuration options such as memory display modes, caller info inclusion levels, and more.
 - **Multiple Log Levels**: Supports six logging levels (debug, log, info, warn, error, fatal) to categorize and prioritize log messages.
 - **Console Logging**: Outputs log messages to the console with color-coded and formatted output based on log level.
 - **File Logging**: Optionally logs messages to a specified file, with separate control over the log level for file output.
 - **Timestamps**: Includes configurable timestamps for all log messages.
-- **Memory Usage Tracking**: Tracks and displays memory usage, either in MB or percentage format, based on configuration.
+- **Custom Color Configuration**: Allows custom color settings for each log level to override default colors.
+
+### Logging Behavior and Execution Control
+
+- **Asynchronous Logging**: Supports async versions of all log methods for non-blocking operations.
+- **Conditional Logging**: Allows log messages to be conditionally logged based on boolean values.
+- **Fatal Logging and Process Termination**: Optionally terminates the application upon a fatal log message.
+
+### Advanced Information Tracking
+
 - **Caller Information**: Includes caller information (file, function, line, and column) in log messages based on log level and configuration.
 - **Inline Caller Information**: Displays inline caller information within log messages for quick debugging reference.
-- **Conditional Logging**: Allows log messages to be conditionally logged based on boolean values.
-- **Asynchronous Logging**: Supports async versions of all log methods for non-blocking operations.
+- **Memory Usage Tracking**: Tracks and displays memory usage, either in MB or percentage format, based on configuration.
+
+### Performance Measurement
+
 - **Timers and Performance Measurement**: Provides methods to start, stop, and measure elapsed time using high-resolution timers (`time`, `timeEnd`, `startTimer`, `stopTimer`).
-- **Detailed Reports**: Generates a report detailing the number of times each log method was called, with percentages.
-- **Fatal Logging and Process Termination**: Optionally terminates the application upon a fatal log message.
-- **Pretty Printing of Objects**: Includes a `dir` method for pretty printing complex objects similar to `console.dir`.
+
+### Utility and Debugging Tools
+
 - **Stack Tracing**: Supports stack tracing with the `trace` method, similar to `console.trace`.
-- **Custom Color Configuration**: Allows custom color settings for each log level to override default colors.
-- **Singleton Pattern**: Implements a singleton pattern to ensure only one instance of the logger is created.
-- **Advanced Configuration Options**: Provides extensive configuration options such as memory display modes, caller info inclusion levels, and more.
+- **Pretty Printing of Objects**: Includes a `dir` method for pretty printing complex objects similar to `console.dir`.
+
+### Reporting and Statistics
+
+- **Log Reports**: Generates a report detailing the number of times each log method was called, with percentages.
 
 ## Dependencies
 
@@ -74,7 +90,7 @@ const logger = new ACL({
 ACL supports a number of different [configuration options](docs/configuration-options.md). Here is another example using additional configuration options:
 
 ```js
-const logger = new ACL({
+const logger = ACL.getInstance({
 	logLevel: 1, // Set console log level
 	outputFilename: "app.log", // Specify log file name
 	outputFilenameLogLevel: 2, // Set file log level
@@ -103,7 +119,7 @@ logger.log(showLog, "This is an log message");
 If `generateReport` is set to `true`, you can generate a detailed report at the end of the application.
 
 ```js
-const logger = new ACL({
+const logger = ACL.getInstance({
 	generateReport: true, // Enable log method call reporting
 });
 // Perform some operations
