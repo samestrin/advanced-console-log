@@ -1,0 +1,49 @@
+name: Update Version
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "package.json"
+
+jobs:
+  update-packages:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Update README Version Badge
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          sed -i "s/Version [0-9]*\.[0-9]*\.[0-9]*/Version $VERSION/g" README.md
+          sed -i "s/badge\/Version-[0-9]*\.[0-9]*\.[0-9]*-/badge\/Version-$VERSION-/g" README.md
+
+      - name: Set up Git user
+        run: |
+          git config --global user.name 'GitHub Actions Bot'
+          git config --global user.email 'actions@github.com'
+
+      - name: Commit changes
+        run: |
+          git add README.md 
+          git commit -m "Update README version" || echo "No changes to commit!"
+
+      # Pull latest changes to avoid conflicts
+      - name: Pull latest changes from main
+        run: |
+          git pull origin main --rebase
+
+      # Push changes after pulling the latest updates
+      - name: Push changes
+        run: |
+          git push origin HEAD:${{ github.ref }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
