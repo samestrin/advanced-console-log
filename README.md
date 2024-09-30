@@ -12,7 +12,7 @@ A customizable logger module for Node.js applications, supporting console and fi
 
 ### Core Logging Features
 
-- **Advanced Configuration Options**: Provides extensive configuration options such as memory display modes, caller info inclusion levels, and more.
+- **Advanced Configuration Options**: Provides extensive [configuration options](docs/configuration-options.md) such as memory display modes, caller info inclusion levels, and more.
 - **Multiple Log Levels**: Supports six logging levels (debug, log, info, warn, error, fatal) to categorize and prioritize log messages.
 - **Console Logging**: Outputs log messages to the console with color-coded and formatted output based on log level.
 - **File Logging**: Optionally logs messages to a specified file, with separate control over the log level for file output.
