@@ -151,10 +151,10 @@ class ACL {
 	 * @returns {Log} - The singleton instance of the Log.
 	 */
 	static getInstance(config) {
-		if (!Log.instance) {
-			Log.instance = new Log(config);
+		if (!ACL.instance) {
+			ACL.instance = new ACL(config);
 		}
-		return Log.instance;
+		return ACL.instance;
 	}
 
 	/**
@@ -278,7 +278,8 @@ class ACL {
 		if (!shouldLogToConsole && !shouldLogToFile) return;
 
 		const formattedArgs = formatArgs(
-			condition === true ? args : [condition, ...args]
+			condition === true ? args : [condition, ...args],
+			COLORS.RESET
 		);
 
 		// Check if stack trace should be included
@@ -294,7 +295,7 @@ class ACL {
 		}
 
 		const timestamp = this.includeTimestamps
-			? `${COLORS.LIGHT_BLUE}${Log.getCurrentTimestamp(this.timestampFormat)}${
+			? `${COLORS.LIGHT_BLUE}${ACL.getCurrentTimestamp(this.timestampFormat)}${
 					COLORS.RESET
 			  } `
 			: "";
@@ -332,7 +333,7 @@ class ACL {
 
 		const fileMessage = `${
 			this.includeTimestamps
-				? Log.getCurrentTimestamp(this.timestampFormat) + " "
+				? ACL.getCurrentTimestamp(this.timestampFormat) + " "
 				: ""
 		}${
 			inlineCallerInfo ? stripAnsiCodes(inlineCallerInfo) : ""
@@ -378,11 +379,12 @@ class ACL {
 
 		setImmediate(() => {
 			const formattedArgs = formatArgs(
-				condition === true ? args : [condition, ...args]
+				condition === true ? args : [condition, ...args],
+				COLORS.RESET
 			);
 
 			const timestamp = this.includeTimestamps
-				? `${COLORS.LIGHT_BLUE}${Log.getCurrentTimestamp(
+				? `${COLORS.LIGHT_BLUE}${ACL.getCurrentTimestamp(
 						this.timestampFormat
 				  )}${COLORS.RESET} `
 				: "";
@@ -416,7 +418,7 @@ class ACL {
 
 			const fileMessage = `${
 				this.includeTimestamps
-					? Log.getCurrentTimestamp(this.timestampFormat) + " "
+					? ACL.getCurrentTimestamp(this.timestampFormat) + " "
 					: ""
 			}${
 				inlineCallerInfo ? stripAnsiCodes(inlineCallerInfo) : ""
