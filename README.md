@@ -2,7 +2,7 @@
 
 [![Star on GitHub](https://img.shields.io/github/stars/samestrin/advanced-console-log?style=social)](https://github.com/samestrin/advanced-console-log/stargazers) [![Fork on GitHub](https://img.shields.io/github/forks/samestrin/advanced-console-log?style=social)](https://github.com/samestrin/advanced-console-log/network/members) [![Watch on GitHub](https://img.shields.io/github/watchers/samestrin/advanced-console-log?style=social)](https://github.com/samestrin/advanced-console-log/watchers)
 
-![Version 0.0.1](https://img.shields.io/badge/Version-0.0.1-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Built with Node.js](https://img.shields.io/badge/Built%20with-Node.js-green)](https://nodejs.org/)
+![Version 0.0.2](https://img.shields.io/badge/Version-0.0.2-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Built with Node.js](https://img.shields.io/badge/Built%20with-Node.js-green)](https://nodejs.org/)
 
 ![Advanced Console Log](https://samestrin.github.io/media/advanced-console-log/advanced-console-log.png)
 
@@ -60,16 +60,18 @@ Then you can get a _single_ instance of ACL (recommended), created with your cus
 ```js
 const logger = ACL.getInstance({
 	logLevel: 1, // Set console log level
-	outputFilename: "app.log", // Specify log file name
-	outputFilenameLogLevel: 2, // Set file log level
-	includeTimestamps: true, // Include timestamps in logs
-	includeMemoryUsage: true, // Track and display memory usage
-	generateReport: true, // Enable log method call reporting
-	terminateOnFatal: true, // Terminate on fatal log messages
 });
 ```
 
 or create a new ACL instance, using your custom [configuration options](docs/configuration-options.md).
+
+```js
+const logger = new ACL({
+	logLevel: 1, // Set console log level
+});
+```
+
+ACL supports a number of different [configuration options](docs/configuration-options.md). Here is another example using additional configuration options:
 
 ```js
 const logger = new ACL({
