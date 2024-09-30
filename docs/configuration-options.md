@@ -8,9 +8,9 @@ The `advanced-console-log` module offers a wide range of configuration options t
 
 | **Option**               | **Type**  | **Default** | **Description**                                                                                                           |
 | ------------------------ | --------- | ----------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `logLevel`               | `number`  | `1`         | Sets the console log level. Accepts values from `0` (debug) to `5` (fatal).                                               |
+| `logLevel`               | `number`  | `1`         | Sets the console [log level](log-levels.md). Accepts values from `0` (debug) to `5` (fatal).                              |
 | `outputFilename`         | `string`  | `null`      | Specifies the filename for file-based logging. If empty, file logging is disabled.                                        |
-| `outputFilenameLogLevel` | `number`  | `1`         | Sets the log level for file logging. Accepts values from `0` (debug) to `5` (fatal).                                      |
+| `outputFilenameLogLevel` | `number`  | `1`         | Sets the [log level](log-levels.md) for file logging. Accepts values from `0` (debug) to `5` (fatal).                     |
 | `terminateOnFatal`       | `boolean` | `false`     | If `true`, terminates the current process upon a `fatal` message.                                                         |
 | `includeTimestamps`      | `boolean` | `true`      | Determines whether to include timestamps in log messages.                                                                 |
 | `includeMemoryUsage`     | `boolean` | `true`      | If `true`, includes memory usage information in log messages.                                                             |
