@@ -103,7 +103,19 @@ If `generateReport` is set to `true`, you can generate a detailed report at the 
 logger.report();
 ```
 
-ACL also supports asynchronous logging. You can call the async versions of log methods if you prefer non-blocking operations:
+ACL also supports asynchronous logging. You can call configure ACL to run in async mode:
+
+```js
+const logger = ACL.getInstance({
+	logLevel: 1, // Set console log level
+	useAsyncLogging: true, // Configure ACL to run in async mode
+});
+// then all subsequent calls will automatically be asynchronous
+logger.info("This is an async info message");
+logger.error("This is an async error message");
+```
+
+or you can directly call the async versions of log methods if you prefer non-blocking operations:
 
 ```js
 logger.infoAsync("This is an async info message");
