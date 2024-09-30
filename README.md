@@ -53,7 +53,7 @@ This logging module utilizes the following built-in Node.js modules:
 - **`process`**: Provides access to the current Node.js process, enabling memory usage tracking and process termination.
 - **`v8`**: Retrieves memory heap statistics to track memory usage within the application.
 
-There are no external dependencies.
+_There are no external dependencies._
 
 ## Installation
 
