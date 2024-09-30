@@ -1,7 +1,7 @@
 {
 	"name": "advanced-console-log",
 	"version": "0.0.2",
-	"description": "A customizable logger module for Node.js applications, supporting console and file logging with various levels, colors, and additional features like memory usage and caller information.",
+	"description": "A customizable NPM logging module for Node.js applications, supporting console and file logging with various levels, colors, and additional features like memory usage and caller information.",
 	"main": "index.js",
 	"directories": {
 		"doc": "docs",

@@ -4,7 +4,7 @@
 
 ![Version 0.0.2](https://img.shields.io/badge/Version-0.0.2-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Built with Node.js](https://img.shields.io/badge/Built%20with-Node.js-green)](https://nodejs.org/)
 
-A customizable logger module for Node.js applications, supporting console and file logging with various levels, colors, and additional features like memory usage and caller information.
+A customizable NPM logging module for Node.js applications, supporting console and file logging with various levels, colors, and additional features like memory usage and caller information.
 
 ![Advanced Console Log](https://samestrin.github.io/media/advanced-console-log/advanced-console-log.png)
 
@@ -58,7 +58,7 @@ _There are no external dependencies._
 
 ## Installation
 
-To install the LLM Interface npm module, you can use npm:
+To install the advanced-console-log npm module, you can use npm:
 
 ```bash
 npm install advanced-console-log
