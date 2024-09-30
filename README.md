@@ -161,6 +161,11 @@ const sampleObject = { name: "John", age: 30, location: "New York" };
 logger.dir(sampleObject);
 ```
 
+## Examples
+
+- [Custom Colors](/examples/custom-colors.js)
+- [Log to File and Suppress Console](/examples/log-to-file-and-suppress-console.js)
+
 ## Contribute
 
 Contributions to this project are welcome. Please fork the repository and submit a pull request with your changes or improvements.
