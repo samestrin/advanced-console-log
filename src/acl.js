@@ -31,7 +31,7 @@ class ACL {
 	 * @param {number} [config.outputFilenameLogLevel=1] - File logging level.
 	 * @param {string} [config.outputFilename=null] - Output file name for log messages.
 	 * @param {boolean} [config.includeTimestamps=true] - Whether to include timestamps in logs.
-	 * @param {boolean} [config.includeMemoryUsage=true] - Whether to include memory usage in logs.
+	 * @param {boolean} [config.includeMemoryUsage=false] - Whether to include memory usage in logs.
 	 * @param {number} [config.memoryCheckFrequency=10] - Frequency of memory checks.
 	 * @param {number} [config.memoryDisplayMode=1] - Memory display mode (1: MB, 2: %, 3: both).
 	 * @param {Object} [config.color] - Color overrides for different log levels.
