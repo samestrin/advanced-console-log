@@ -9,11 +9,7 @@ const ACL = require("advanced-console-log");
 
 // Create a logger instance with custom color configuration
 const logger = new ACL({
-	logLevel: 1, // Set the log level (0 - debug, 5 - fatal)
-	includeTimestamps: true, // Include timestamps in log messages
-	includeMemoryUsage: false, // Exclude memory usage from log messages
-	includeCallerInfo: true, // Include caller info in log messages
-	callerInfoLevel: 1, // Minimum log level for caller info inclusion
+	logLevel: 1, // Show all log levels
 	color: {
 		debug: "\x1b[36m", // Cyan
 		log: "\x1b[32m", // Green
