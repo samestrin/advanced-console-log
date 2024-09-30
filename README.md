@@ -49,9 +49,10 @@ A customizable logger module for Node.js applications, supporting console and fi
 This logging module utilizes the following built-in Node.js modules:
 
 - **`fs`**: For file system operations, such as appending log messages to a specified file.
+- **`path`**: Provides utilities for handling and manipulating file paths, ensuring cross-platform compatibility when working with file system operations.
 - **`util`**: Used to format and inspect complex objects for pretty printing in log outputs.
 - **`process`**: Provides access to the current Node.js process, enabling memory usage tracking and process termination.
-- **`v8`**: Retrieves memory heap statistics to track memory usage within the application.
+- **`v8`**: Retrieves memory heap statistics to track memory usage within the application. _Lazy loaded for performance reasons._
 
 _There are no external dependencies._
 
