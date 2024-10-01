@@ -1,4 +1,4 @@
-# [Advanced Console Log Documentation](/docs/)
+# [Advanced Console Log Documentation](/docs/README.md)
 
 ## Configuration Options
 
