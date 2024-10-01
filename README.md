@@ -161,6 +161,16 @@ const sampleObject = { name: "John", age: 30, location: "New York" };
 logger.dir(sampleObject);
 ```
 
+## Documentation
+
+- [Asynchronous Logging](/docs/async-logging.md)
+- [Configuration Options](/docs/configuration-options.md)
+- [Log Levels](/docs/log-levels.md)
+- [Methods](/docs/methods.md)
+- [File Rotation and Retention Strategy](/docs/file-rotation.md)
+- [Performance Considerations](/docs/performance-considerations.md)
+- [How to Extend or Customize ACL](/docs/extending-acl.md)
+
 ## Examples
 
 - [Advanced Example](/examples/advanced-example.js)
