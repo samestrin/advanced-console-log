@@ -165,11 +165,11 @@ logger.dir(sampleObject);
 
 - [Asynchronous Logging](/docs/async-logging.md)
 - [Configuration Options](/docs/configuration-options.md)
+- [File Rotation and Retention Strategy](/docs/file-rotation.md)
+- [How to Extend or Customize ACL](/docs/extending-acl.md)
 - [Log Levels](/docs/log-levels.md)
 - [Methods](/docs/methods.md)
-- [File Rotation and Retention Strategy](/docs/file-rotation.md)
 - [Performance Considerations](/docs/performance-considerations.md)
-- [How to Extend or Customize ACL](/docs/extending-acl.md)
 
 ## Examples
 
