@@ -1,5 +1,7 @@
 # Advanced Console Log Examples
 
+## Table of Contents
+
 - [Advanced Example](advanced-example.js)
 - [Custom Colors](custom-colors.js)
 - [Generate Report](generate-report.js)
