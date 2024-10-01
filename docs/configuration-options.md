@@ -30,12 +30,14 @@ The `advanced-console-log` module offers a wide range of configuration options t
 
 ### File Logging Configuration
 
-| **Option**               | **Type** | **Default** | **Description**                                                                                       |
-| ------------------------ | -------- | ----------- | ----------------------------------------------------------------------------------------------------- |
-| `outputFilename`         | `string` | `null`      | Specifies the filename for file-based logging. If empty, file logging is disabled.                    |
-| `outputFilenameLogLevel` | `number` | `1`         | Sets the [log level](log-levels.md) for file logging. Accepts values from `0` (debug) to `5` (fatal). |
-| `maxLogFileSizeMB`       | `number` | `10`        | Defines the maximum log file size in MB. When the file size is reached, a new log file is created.    |
-| `maxLogFiles`            | `number` | `5`         | Limits the number of log files retained. Older files are deleted when the limit is exceeded.          |
+| **Option**                  | **Type**  | **Default** | **Description**                                                                                                            |
+| --------------------------- | --------- | ----------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `outputFilename`            | `string`  | `null`      | Specifies the filename for file-based logging. If empty, file logging is disabled.                                         |
+| `outputFileLogLevel`        | `number`  | `1`         | Sets the [log level](log-levels.md) for file logging. Accepts values from `0` (debug) to `5` (fatal).                      |
+| `outputFileBatchOutput`     | `boolean` | `false`     | If `true`, enables batching of log entries for file output to improve performance.                                         |
+| `outputFileBatchOutputSize` | `number`  | `25`        | The number of log entries to batch before writing to the file. Applies only when `outputFileBatchOutput` is set to `true`. |
+| `maxLogFileSizeMB`          | `number`  | `10`        | Defines the maximum log file size in MB. When the file size is reached, a new log file is created.                         |
+| `maxLogFiles`               | `number`  | `5`         | Limits the number of log files retained. Older files are deleted when the limit is exceeded.                               |
 
 ### Performance and Async Configuration
 

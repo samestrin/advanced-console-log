@@ -94,7 +94,7 @@ ACL supports a number of different [configuration options](docs/configuration-op
 const logger = ACL.getInstance({
 	logLevel: 1, // Set console log level
 	outputFilename: "app.log", // Specify log file name
-	outputFilenameLogLevel: 2, // Set file log level
+	outputFileLogLevel: 2, // Set file log level
 	includeTimestamps: true, // Include timestamps in logs
 	includeMemoryUsage: true, // Track and display memory usage
 	generateReport: true, // Enable log method call reporting

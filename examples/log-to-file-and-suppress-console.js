@@ -4,7 +4,7 @@ const ACL = require("../index");
 const logger = new ACL({
 	logLevel: 0, // Suppress console logs
 	outputFilename: "app.log", // Specify the file to save logs
-	outputFilenameLogLevel: 1, // Log all levels to file
+	outputFileLogLevel: 1, // Log all levels to file
 });
 
 // Use the logger as usual

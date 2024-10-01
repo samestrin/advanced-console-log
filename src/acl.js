@@ -28,7 +28,7 @@ class ACL {
 	 * Constructor for the Log class.
 	 * @param {Object} config - Configuration object.
 	 * @param {number} [config.logLevel=1] - Console logging level.
-	 * @param {number} [config.outputFilenameLogLevel=1] - File logging level.
+	 * @param {number} [config.outputFileLogLevel=1] - File logging level.
 	 * @param {string} [config.outputFilename=null] - Output file name for log messages.
 	 * @param {boolean} [config.includeTimestamps=true] - Whether to include timestamps in logs.
 	 * @param {boolean} [config.includeMemoryUsage=false] - Whether to include memory usage in logs.
@@ -46,6 +46,9 @@ class ACL {
 	 * @param {boolean} [config.useAsyncLogging=false] - If true, enables async versions of all log methods (`debugAsync`, `infoAsync`, etc.).
 	 * @param {number} [config.maxLogFileSizeMB=10] - Maximum size of a log file in MB before rotation.
 	 * @param {number} [config.maxLogFiles=5] - Maximum number of log files to retain.
+	 * @param {boolean} [config.outputFileBatchOutput=false] - Enable batched file output.
+	 * @param {number} [config.outputFileBatchOutputSize=25] - Batch size for batched file output (number of log entries).
+	 * @
 	 */
 	constructor(config = {}) {
 		// Logging level settings
@@ -53,24 +56,24 @@ class ACL {
 
 		// File logging options
 		this.outputFilename = config.outputFilename || null;
-		this.outputFilenameLogLevel = config.outputFilenameLogLevel ?? 1;
+		this.outputFileLogLevel = config.outputFileLogLevel ?? 1;
 
 		// Include timestamps in log messages
 		this.includeTimestamps = config.includeTimestamps !== false;
 
 		// Memory usage settings
 		this.includeMemoryUsage = config.includeMemoryUsage || false;
-		this.memoryCheckFrequency = config.memoryCheckFrequency ?? 10; // Accept 0 values
-		this.memoryDisplayMode = config.memoryDisplayMode ?? 1; // Accept 0 values
+		this.memoryCheckFrequency = config.memoryCheckFrequency ?? 10;
+		this.memoryDisplayMode = config.memoryDisplayMode ?? 1;
 
 		// Caller info settings
 		this.includeCallerInfo = config.includeCallerInfo || false;
-		this.callerInfoLevel = config.callerInfoLevel ?? 2; // Accept 0 values
-		this.callerInfoDisplayMode = config.callerInfoDisplayMode ?? 1; // Accept 0 values
+		this.callerInfoLevel = config.callerInfoLevel ?? 2;
+		this.callerInfoDisplayMode = config.callerInfoDisplayMode ?? 1;
 
 		// Inline caller info settings
 		this.includeInlineCallerInfo = !!config.includeInlineCallerInfo;
-		this.inlineCallerInfoLevel = config.inlineCallerInfoLevel ?? 1; // Accept 0 values
+		this.inlineCallerInfoLevel = config.inlineCallerInfoLevel ?? 1;
 
 		// Include stack trace in error and fatal messages
 		this.includeStackTrace = !!config.includeStackTrace;
@@ -104,6 +107,10 @@ class ACL {
 		// Log file rotation settings
 		this.maxLogFileSizeMB = config.maxLogFileSizeMB || 10; // 10 MB by default
 		this.maxLogFiles = config.maxLogFiles || 5; // Retain up to 5 log files by default
+
+		this.outputFileBatchOutput = config.outputFileBatchOutput || false;
+		this.outputFileBatchOutputSize = config.outputFileBatchOutputSize || 25;
+		this.batchedLogs = [];
 
 		// Memory tracking
 		if (this.includeMemoryUsage) {
@@ -189,8 +196,9 @@ class ACL {
 		try {
 			fs.appendFileSync(this.outputFilename, header, "utf8");
 		} catch (err) {
-			process.stderr.write(
-				`Failed to write header to log file: ${err.message}\n`
+			this.error(
+				true,
+				`writeHeader failed: Unable to write header to log file - ${err.message}`
 			);
 		}
 	}
@@ -292,10 +300,10 @@ class ACL {
 	shouldLogToFile(condition, level) {
 		if (
 			!this.outputFilename ||
-			this.outputFilenameLogLevel === 0 ||
+			this.outputFileLogLevel === 0 ||
 			(typeof condition === "boolean" && !condition) ||
-			(this.outputFilenameLogLevel === 2 && level < 2) ||
-			(this.outputFilenameLogLevel === 3 && level < 3)
+			(this.outputFileLogLevel === 2 && level < 2) ||
+			(this.outputFileLogLevel === 3 && level < 3)
 		) {
 			return false;
 		}
@@ -303,24 +311,38 @@ class ACL {
 	}
 
 	/**
-	 * ACL a message with a specific color and condition.
-	 * @param {string} color - The color to use for the log message.
-	 * @param {boolean} condition - Condition to check before logging.
-	 * @param {number} level - The level of the log message.
-	 * @param {...any} args - The message arguments.
+	 * Flush batched logs to the file.
+	 */
+	flushBatchLogs() {
+		if (this.batchedLogs.length === 0) return;
+		const fileContent = this.batchedLogs.join("\n") + "\n";
+		fs.appendFileSync(this.outputFilename, fileContent, "utf8");
+		this.batchedLogs = [];
+	}
+
+	/**
+	 * Logs a message synchronously with a specific color and condition to console and/or file.
+	 * Supports batched logging if `outputFileBatchOutput` is enabled.
+	 *
+	 * @param {string} color - The color code for the log message in the console.
+	 * @param {boolean} [condition=true] - Condition to determine whether the log message should be printed.
+	 * @param {number} level - The log level of the message (e.g., `0` for debug, `1` for log, etc.).
+	 * @param {...any} args - The log message arguments to be formatted and printed.
 	 */
 	logWithColorAndCondition(color, condition = true, level, ...args) {
 		const shouldLogToConsole = this.shouldLogToConsole(condition, level);
 		const shouldLogToFile = this.shouldLogToFile(condition, level);
 
+		// Skip logging if neither console nor file output is enabled
 		if (!shouldLogToConsole && !shouldLogToFile) return;
 
+		// Format the log message arguments
 		const formattedArgs = formatArgs(
 			condition === true ? args : [condition, ...args],
 			COLORS.RESET
 		);
 
-		// Check if stack trace should be included
+		// Include stack trace if necessary
 		let stackTrace = "";
 		const isErrorOrFatal = level >= 3;
 		const hasExistingStackTrace = formattedArgs.some(
@@ -332,12 +354,14 @@ class ACL {
 			stackTrace = new Error().stack;
 		}
 
+		// Prepare the timestamp if included
 		const timestamp = this.includeTimestamps
 			? `${COLORS.LIGHT_BLUE}${ACL.getCurrentTimestamp(this.timestampFormat)}${
 					COLORS.RESET
 			  } `
 			: "";
 
+		// Update memory usage if tracking is enabled
 		if (
 			this.includeMemoryUsage &&
 			this.logEventCount % this.memoryCheckFrequency === 0
@@ -346,29 +370,34 @@ class ACL {
 			this.logEventCount = 0;
 		}
 
+		// Retrieve inline caller info if configured
 		const inlineCallerInfo = this.shouldIncludeInlineCallerInfo(level)
 			? `${this.color.inlineCaller}${this.getInlineCallerInfo(
 					this.inlineCallerInfoLevel
 			  )}${COLORS.RESET} `
 			: "";
 
+		// Retrieve detailed caller info if enabled for the log level
 		const callerInfo = this.shouldIncludeCallerInfo(level)
 			? this.getCallerInfo()
 			: "";
 
+		// Increment the log event counter
 		this.logEventCount++;
 
+		// Prepare formatted message for console and file output
 		const firstNewline = this.firstShown ? "" : "\n";
 		if (!this.firstShown) this.firstShown = true;
-
 		const formattedMessage = formattedArgs.join(" ").trim();
 
+		// Construct the console message
 		const consoleMessage = `${firstNewline}${timestamp}${
 			this.memoryUsage
 		}${inlineCallerInfo}${color}${formattedMessage}${COLORS.RESET}${
 			this.space
 		}${callerInfo}\n${stackTrace ? stackTrace + "\n" : ""}`;
 
+		// Construct the file message without ANSI codes
 		const fileMessage = `${
 			this.includeTimestamps
 				? ACL.getCurrentTimestamp(this.timestampFormat) + " "
@@ -384,49 +413,69 @@ class ACL {
 			process.stdout.write(consoleMessage);
 		}
 
-		// Output to file
+		// Output to file if enabled
 		if (shouldLogToFile && this.outputFilename) {
 			const logFilePath = path.resolve(this.outputFilename);
+
+			// Handle file rotation if necessary
 			handleLogFileRotation(
 				logFilePath,
 				this.maxLogFileSizeMB,
 				this.maxLogFiles
 			);
 
-			try {
-				fs.appendFileSync(this.outputFilename, fileMessage, "utf8");
-			} catch (err) {
-				// Handle file write errors
-				process.stderr.write(`Failed to write to log file: ${err.message}\n`);
+			// Perform batched logging if enabled
+			if (this.outputFileBatchOutput) {
+				this.batchedLogs.push(fileMessage);
+				if (this.batchedLogs.length >= this.outputFileBatchOutputSize) {
+					this.flushBatchLogs();
+				}
+			} else {
+				// Write directly to file synchronously
+				try {
+					fs.appendFileSync(this.outputFilename, fileMessage, "utf8");
+				} catch (err) {
+					this.error(
+						true,
+						`logWithColorAndCondition failed: Unable to write to file '${this.outputFilename}' - ${err.message}`
+					);
+				}
 			}
 		}
 	}
 
 	/**
-	 * ACL a message with a specific color and condition asynchronously.
-	 * @param {string} color - The color to use for the log message.
-	 * @param {boolean} condition - Condition to check before logging.
-	 * @param {number} level - The level of the log message.
-	 * @param {...any} args - The message arguments.
+	 * Logs a message asynchronously with a specific color and condition to console and/or file.
+	 * Supports batched logging if `outputFileBatchOutput` is enabled.
+	 *
+	 * @param {string} color - The color code for the log message in the console.
+	 * @param {boolean} [condition=true] - Condition to determine whether the log message should be printed.
+	 * @param {number} level - The log level of the message (e.g., `0` for debug, `1` for log, etc.).
+	 * @param {...any} args - The log message arguments to be formatted and printed.
 	 */
 	logWithColorAndConditionAsync(color, condition = true, level, ...args) {
+		// Determine if the log message should be logged to console or file
 		const shouldLogToConsole = this.shouldLogToConsole(condition, level);
 		const shouldLogToFile = this.shouldLogToFile(condition, level);
 
+		// Skip logging if neither console nor file output is enabled
 		if (!shouldLogToConsole && !shouldLogToFile) return;
 
 		setImmediate(() => {
+			// Format the log message arguments
 			const formattedArgs = formatArgs(
 				condition === true ? args : [condition, ...args],
 				COLORS.RESET
 			);
 
+			// Prepare the timestamp if included
 			const timestamp = this.includeTimestamps
 				? `${COLORS.LIGHT_BLUE}${ACL.getCurrentTimestamp(
 						this.timestampFormat
 				  )}${COLORS.RESET} `
 				: "";
 
+			// Update memory usage if tracking is enabled
 			if (
 				this.includeMemoryUsage &&
 				this.logEventCount % this.memoryCheckFrequency === 0
@@ -435,25 +484,30 @@ class ACL {
 				this.logEventCount = 0;
 			}
 
+			// Retrieve inline caller info if configured
 			const inlineCallerInfo = this.shouldIncludeInlineCallerInfo(level)
 				? `${this.color.inlineCaller}${this.getInlineCallerInfo(
 						this.inlineCallerInfoLevel
 				  )}${COLORS.RESET} `
 				: "";
 
+			// Retrieve detailed caller info if enabled for the log level
 			const callerInfo = this.shouldIncludeCallerInfo(level)
 				? this.getCallerInfo()
 				: "";
 
+			// Increment the log event counter
 			this.logEventCount++;
 
+			// Prepare formatted message for console and file output
 			const firstNewline = this.firstShown ? "" : "\n";
 			if (!this.firstShown) this.firstShown = true;
-
 			const formattedMessage = formattedArgs.join(" ").trim();
 
+			// Construct the console message
 			const consoleMessage = `${firstNewline}${timestamp}${this.memoryUsage}${inlineCallerInfo}${color}${formattedMessage}${COLORS.RESET}${this.space}${callerInfo}\n`;
 
+			// Construct the file message without ANSI codes
 			const fileMessage = `${
 				this.includeTimestamps
 					? ACL.getCurrentTimestamp(this.timestampFormat) + " "
@@ -469,16 +523,40 @@ class ACL {
 				process.stdout.write(consoleMessage);
 			}
 
-			// Output to file
+			// Output to file if enabled
 			if (shouldLogToFile && this.outputFilename) {
-				fs.appendFile(this.outputFilename, fileMessage, "utf8", (err) => {
-					if (err) {
-						// Handle file write errors
-						process.stderr.write(
-							`Failed to write to log file: ${err.message}\n`
-						);
+				const logFilePath = path.resolve(this.outputFilename);
+
+				// Handle file rotation if necessary
+				handleLogFileRotation(
+					logFilePath,
+					this.maxLogFileSizeMB,
+					this.maxLogFiles
+				);
+
+				// Perform batched logging if enabled
+				if (this.outputFileBatchOutput) {
+					this.batchedLogs.push(fileMessage);
+					if (this.batchedLogs.length >= this.outputFileBatchOutputSize) {
+						setImmediate(() => this.flushBatchLogs());
 					}
-				});
+				} else {
+					// Write directly to file asynchronously
+					setImmediate(async () => {
+						try {
+							await fs.promises.appendFile(
+								this.outputFilename,
+								fileMessage,
+								"utf8"
+							);
+						} catch (err) {
+							this.error(
+								true,
+								`logWithColorAndConditionAsync failed: Unable to write to file '${this.outputFilename}' - ${err.message}`
+							);
+						}
+					});
+				}
 			}
 		});
 	}
@@ -748,7 +826,7 @@ This report details the number of times each method was called and their respect
 			console.log();
 		} else {
 			throw new Error(
-				`To use Log.report(), the generateReport parameter must be set to true.`
+				`ACL Report Error: The 'generateReport' parameter must be set to true to generate a report.`
 			);
 		}
 	}
