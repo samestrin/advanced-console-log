@@ -1,5 +1,9 @@
 # [Advanced Console Log Documentation](/docs/README.md)
 
+## Log Level Usage
+
+Both `logLevel` and `outputFilenameLogLevel` use the following definitions.
+
 ## Log Level Definitions
 
 | **Level** | **Name** | **Description**                                         |
