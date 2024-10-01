@@ -6,10 +6,10 @@ This documentation provides an in-depth guide on configuring, using, and extendi
 
 ## Table of Contents
 
-- [Asynchronous Logging](async-logging.md)
-- [Configuration Options](configuration-options.md)
-- [Log Levels](log-levels.md)
-- [Methods](methods.md)
-- [File Rotation and Retention Strategy](file-rotation.md)
-- [Performance Considerations](performance-considerations.md)
-- [How to Extend or Customize ACL](extending-acl.md)
+- [Asynchronous Logging](/docs/async-logging.md)
+- [Configuration Options](/docs/configuration-options.md)
+- [File Rotation and Retention Strategy](/docs/file-rotation.md)
+- [How to Extend or Customize ACL](/docs/extending-acl.md)
+- [Log Levels](/docs/log-levels.md)
+- [Methods](/docs/methods.md)
+- [Performance Considerations](/docs/performance-considerations.md)
