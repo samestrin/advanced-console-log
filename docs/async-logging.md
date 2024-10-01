@@ -1,4 +1,4 @@
-# Advanced Console Log Documentation
+# [Advanced Console Log Documentation](/docs/)
 
 ## Why Use Async Logging?
 

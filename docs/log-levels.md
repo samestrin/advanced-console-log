@@ -1,4 +1,4 @@
-# Advanced Console Log Documentation
+# [Advanced Console Log Documentation](/docs/)
 
 ## Log Level Definitions
 
