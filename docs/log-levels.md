@@ -2,7 +2,7 @@
 
 ## Log Level Usage
 
-Both `logLevel` and `outputFilenameLogLevel` use the following definitions.
+Both the `logLevel` and `outputFilenameLogLevel` [configuration options](/docs/configuration-options.md) use the following definitions.
 
 ## Log Level Definitions
 
