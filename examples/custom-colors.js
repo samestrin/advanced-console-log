@@ -1,23 +1,29 @@
+/**
+ * Custom Colors Example
+ * Demonstrates setting custom colors for log levels.
+ */
+
 const ACL = require("../index");
 
-// Create a logger instance with custom color configuration
+// Create an instance of ACL with custom colors
 const logger = new ACL({
 	color: {
-		debug: "\x1b[36m", // Cyan
-		log: "\x1b[32m", // Green
-		info: "\x1b[34m", // Blue
+		debug: "\x1b[35m", // Magenta
+		log: "\x1b[36m", // Cyan
+		info: "\x1b[32m", // Green
 		warn: "\x1b[33m", // Yellow
 		error: "\x1b[31m", // Red
-		fatal: "\x1b[35m", // Magenta
-		caller: "\x1b[90m", // Gray for caller info
-		inlineCaller: "\x1b[95m", // Bright Magenta for inline caller info
+		fatal: "\x1b[41m", // Red background
 	},
 });
 
-// Logging with different levels to demonstrate color differences
-logger.debug("This is a debug message.");
-logger.log("This is a regular log message.");
-logger.info("This is an informational message.");
-logger.warn("This is a warning message.");
-logger.error("This is an error message.");
-logger.fatal("This is a fatal message, terminating the process.");
+function main() {
+	logger.debug("This is a debug message with custom color.");
+	logger.log("This is a log message with custom color.");
+	logger.info("This is an info message with custom color.");
+	logger.warn("This is a warning message with custom color.");
+	logger.error("This is an error message with custom color.");
+	logger.fatal("This is a fatal message with custom color.");
+}
+
+main();

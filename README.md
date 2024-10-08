@@ -1,8 +1,7 @@
 # Advanced Console Log (ACL)
 
-[![Star on GitHub](https://img.shields.io/github/stars/samestrin/advanced-console-log?style=social)](https://github.com/samestrin/advanced-console-log/stargazers) [![Fork on GitHub](https://img.shields.io/github/forks/samestrin/advanced-console-log?style=social)](https://github.com/samestrin/advanced-console-log/network/members) [![Watch on GitHub](https://img.shields.io/github/watchers/samestrin/advanced-console-log?style=social)](https://github.com/samestrin/advanced-console-log/watchers)
-
-![Version 0.0.4](https://img.shields.io/badge/Version-0.0.4-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Built with Node.js](https://img.shields.io/badge/Built%20with-Node.js-green)](https://nodejs.org/)
+[![Star on GitHub](https://img.shields.io/github/stars/samestrin/advanced-console-log?style=social)](https://github.com/samestrin/advanced-console-log/stargazers) [![Fork on GitHub](https://img.shields.io/github/forks/samestrin/advanced-console-log?style=social)](https://github.com/samestrin/advanced-console-log/network/members) [![Watch on GitHub](https://img.shields.io/github/watchers/samestrin/advanced-console-log?style=social)](https:
+![Version 0.0.4](https://img.shields.io/badge/Version-0.0.4-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Built with Node.js](https://img.shields.io/badge/Built%20with-Node.js-green)](https:
 
 **Advanced Console Log (ACL)**, available as the `advanced-console-log` NPM package, is a lightweight logging module for Node.js applications. It supports console and file logging with various levels, colors, and additional features such as memory usage tracking and caller information.
 
@@ -16,6 +15,7 @@
 - **Multiple Log Levels**: Supports six logging levels (debug, log, info, warn, error, fatal) to categorize and prioritize log messages.
 - **Console Logging**: Outputs log messages to the console with color-coded and formatted output based on log level.
 - **File Logging**: Optionally logs messages to a specified file, with separate control over the log level for file output.
+- **Asynchronous Logging Modes**: Supports multiple asynchronous logging modes ("async", "async-queue", "worker") for non-blocking operations in high-throughput environments.
 - **Timestamps**: Includes configurable timestamps for all log messages.
 - **Custom Color Configuration**: Allows custom color settings for each log level to override default colors.
 
@@ -44,6 +44,10 @@
 
 - **Log Reports**: Generates a report detailing the number of times each log method was called, with percentages.
 
+### File Management
+
+- **File Rotation and Retention**: Supports automatic log file rotation and retention strategies to manage log file sizes and disk space.
+
 ## Dependencies
 
 This logging module utilizes the following built-in Node.js modules:
@@ -53,6 +57,7 @@ This logging module utilizes the following built-in Node.js modules:
 - **`util`**: Used to format and inspect complex objects for pretty printing in log outputs.
 - **`process`**: Provides access to the current Node.js process, enabling memory usage tracking and process termination.
 - **`v8`**: Retrieves memory heap statistics to track memory usage within the application. _Lazy loaded for performance reasons._
+- **`worker_threads`**: Used for worker thread operations in worker mode. _Lazy loaded for performance reasons._
 
 _There are no external dependencies._
 
@@ -76,7 +81,7 @@ Then you can get a _single_ instance of ACL (recommended), created with your cus
 
 ```js
 const logger = ACL.getInstance({
-	logLevel: 1, // Set console log level
+	logLevel: 1,
 });
 ```
 
@@ -84,7 +89,7 @@ or create a new ACL instance, using your custom [configuration options](docs/con
 
 ```js
 const logger = new ACL({
-	logLevel: 1, // Set console log level
+	logLevel: 1,
 });
 ```
 
@@ -92,15 +97,35 @@ ACL supports a number of different [configuration options](docs/configuration-op
 
 ```js
 const logger = ACL.getInstance({
-	logLevel: 1, // Set console log level
-	outputFilename: "app.log", // Specify log file name
-	outputFileLogLevel: 2, // Set file log level
-	includeTimestamps: true, // Include timestamps in logs
-	includeMemoryUsage: true, // Track and display memory usage
-	generateReport: true, // Enable log method call reporting
-	terminateOnFatal: true, // Terminate on fatal log messages
+	logLevel: 1,
+	outputFilename: "app.log",
+	outputFileLogLevel: 2,
+	includeTimestamps: true,
+	includeMemoryUsage: true,
+	generateReport: true,
+	terminateOnFatal: true,
+	mode: "async",
 });
 ```
+
+### Asynchronous Logging Modes
+
+ACL supports different modes of asynchronous logging to improve performance in high-throughput scenarios.
+
+- **Regular Mode**: Default mode; logging methods are synchronous.
+- **Async Mode**: All logging methods are converted to their asynchronous equivalents.
+- **Async-Queue Mode**: Logs are queued and flushed in batches to improve performance.
+- **Worker Mode**: Logging operations are offloaded to a worker thread to prevent blocking the main event loop.
+
+To enable an asynchronous logging mode, set the `mode` configuration option:
+
+```js
+const logger = ACL.getInstance({
+	mode: "async",
+});
+```
+
+### Using Logging Methods
 
 Once created, you can use the logger to log messages at various levels:
 
@@ -112,29 +137,30 @@ logger.error("This is an error message");
 
 You can also use a boolean to control log display.
 
-```js
+```
 const showLog = true;
-logger.log(showLog, "This is an log message");
+logger.log(showLog, "This is a log message");
 ```
 
 If `generateReport` is set to `true`, you can generate a detailed report at the end of the application.
 
 ```js
 const logger = ACL.getInstance({
-	generateReport: true, // Enable log method call reporting
+	generateReport: true,
 });
-// Perform some operations
+
 logger.report();
 ```
 
-ACL also supports asynchronous logging e.g. non-blocking operations. You can call configure ACL to run in async mode:
+### Async Logging Examples
+
+ACL also supports asynchronous logging e.g., non-blocking operations. You can configure ACL to run in async mode:
 
 ```js
 const logger = ACL.getInstance({
-	logLevel: 1, // Set console log level
-	useAsyncLogging: true, // Configure ACL to run in async mode
+	mode: "async",
 });
-// then all subsequent calls will automatically be asynchronous
+
 logger.info("This is an async info message");
 logger.error("This is an async error message");
 ```
@@ -146,13 +172,17 @@ logger.infoAsync("This is an async info message");
 logger.errorAsync("This is an async error message");
 ```
 
+### Using Timers
+
 ACL lets you measure the elapsed time of code execution using timers:
 
 ```js
 logger.startTimer("Initialization");
-// Perform some operations
+// code to measure
 logger.stopTimer("Initialization");
 ```
+
+### Pretty Printing Objects
 
 Use the `dir` method to pretty print complex objects:
 
@@ -174,10 +204,14 @@ logger.dir(sampleObject);
 ## Examples
 
 - [Advanced Example](/examples/advanced-example.js)
+- [Async Queue Mode Example](/examples/async-queue.js)
+- [Async Mode Example](/examples/async.js)
+- [Worker Mode Example](/examples/worker.js)
 - [Custom Colors](/examples/custom-colors.js)
 - [Generate Report](/examples/generate-report.js)
 - [Log to File and Suppress Console](/examples/log-to-file-and-suppress-console.js)
 - [Terminate on Fatal](/examples/terminate-on-fatal.js)
+- [Using Timers](/examples/timers.js)
 
 ## Contribute
 
@@ -189,4 +223,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Share
 
-[![Twitter](https://img.shields.io/badge/X-Tweet-blue)](https://twitter.com/intent/tweet?text=Check%20out%20this%20awesome%20project!&url=https://github.com/samestrin/advanced-console-log) [![Facebook](https://img.shields.io/badge/Facebook-Share-blue)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/samestrin/advanced-console-log) [![LinkedIn](https://img.shields.io/badge/LinkedIn-Share-blue)](https://www.linkedin.com/sharing/share-offsite/?url=https://github.com/samestrin/advanced-console-log)
+[![Twitter](https://img.shields.io/badge/X-Tweet-blue)](https://twitter.com/intent/tweet?text=Check%20out%20this%20awesome%20project!&url=https://github.com/samestrin/advanced-console-log) [![Facebook](https://img.shields.io/badge/Facebook-Share-blue)](https://www.facebook.com/sharer/sharer.php?u=https://github.com/samestrin/advanced-console-log) [![LinkedIn](https://img.shields.io/badge/LinkedIn-Share-blue)](https://www.linkedin.com/sharing/share-offsite/?url=https:

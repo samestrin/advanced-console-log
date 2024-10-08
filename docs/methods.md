@@ -6,7 +6,7 @@ The following are the core logging methods available in the `advanced-console-lo
 
 ### `debug(condition = true, ...args)`
 
-Logs a debug message with a cyan color. It’s typically used for detailed debugging information. If `generateReport` is set to `true`, it counts the call in the report.
+Logs a debug message with a cyan color. It’s typically used for detailed debugging information.
 
 ### `log(condition = true, ...args)`
 
@@ -30,7 +30,7 @@ Logs a fatal error message with a magenta color. It’s used for severe errors t
 
 ## Async Logging Methods
 
-The following are the async logging methods available in the `advanced-console-log` module. These can be called directly or the instance of ACL can be configured to run in async mode and you can u8se the _Core Logging Methods_.
+The following are the async logging methods available in the `advanced-console-log` module. These can be called directly, or you can configure the instance of ACL to run in an async mode (e.g., `mode: "async"`) and use the Core Logging Methods.
 
 ### `debugAsync(condition = true, ...args)`
 
@@ -78,6 +78,12 @@ An alias for `startTimer(label)`. Starts a timer with the given `label`.
 
 An alias for `stopTimer(label)`. Stops the timer with the given `label` and logs the elapsed time.
 
+### `clearAllTimers()`
+
+Clears all active timers.
+
+**Note:** If the `enableTimers` configuration option is not set to `true`, calling these timer methods will throw an error.
+
 ## Utility Methods
 
 ### `dir(obj)`
@@ -95,3 +101,9 @@ Logs the current stack trace of the application. It’s similar to `console.trac
 Generates a detailed report if `generateReport` is set to `true`. The report includes the number of calls made to each log method (`debug`, `log`, `info`, etc.) and their respective percentages.
 
 **Note:** If the `generateReport` configuration option is not set to `true`, calling this method will throw an error.
+
+## Close Method
+
+### `close()`
+
+Closes any open resources, such as file streams or worker threads. Should be called when the logger is no longer needed, especially in asynchronous modes.

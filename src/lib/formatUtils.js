@@ -1,7 +1,7 @@
-// lib/utils.js
+// lib/formatUtils.js
 
 /**
- * Utility functions for the logger.
+ * Utility functions for formatting.
  * @module utils
  */
 
