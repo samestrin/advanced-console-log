@@ -203,15 +203,22 @@ logger.dir(sampleObject);
 
 ## Examples
 
-- [Advanced Example](/examples/advanced-example.js)
-- [Async Queue Mode Example](/examples/async-queue.js)
-- [Async Mode Example](/examples/async.js)
-- [Worker Mode Example](/examples/worker.js)
-- [Custom Colors](/examples/custom-colors.js)
-- [Generate Report](/examples/generate-report.js)
-- [Log to File and Suppress Console](/examples/log-to-file-and-suppress-console.js)
-- [Terminate on Fatal](/examples/terminate-on-fatal.js)
-- [Using Timers](/examples/timers.js)
+- [Basic Usage](/examples/basic-usage.js): A simple example demonstrating basic logging methods.
+- [Configuration Options](/examples/configuration-options.js): Showcases various configuration options available in ACL.
+- [Async Mode](/examples/async-mode.js): Demonstrates how to use ACL in async mode.
+- [Async-Queue Mode](/examples/async-queue-mode.js): Shows how to use the async-queue mode for batching logs.
+- [Worker Mode](/examples/worker-mode.js): Explains how to use the worker mode to offload logging operations.
+- [Custom Colors](/examples/custom-colors.js): Explains how to set custom colors for different log levels.
+- [Generate Report](/examples/generate-report.js): Shows how to generate a detailed report of log statistics.
+- [Terminate on Fatal](/examples/terminate-on-fatal.js): Demonstrates how to terminate the application upon a fatal log message.
+- [Timers](/examples/timers.js): Using timer methods to measure code execution time.
+- [File Rotation](/examples/file-rotation.js): Demonstrates file rotation and retention strategy.
+- [Memory Usage](/examples/memory-usage.js): Tracks and displays memory usage information.
+- [Caller Info](/examples/caller-info.js): Includes caller information (file, function, line) in log messages.
+- [Conditional Logging](/examples/conditional-logging.js): Logs messages conditionally based on a boolean value.
+- [Pretty Printing](/examples/pretty-printing.js): Uses the `dir` method to pretty print complex objects.
+- [Stack Trace](/examples/stack-trace.js): Logs the current stack trace of the application.
+- [Extending ACL](/examples/extending-acl.js): Demonstrates how to extend ACL to add custom functionality.
 
 ## Contribute
 
