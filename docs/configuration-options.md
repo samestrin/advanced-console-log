@@ -6,19 +6,20 @@ The `advanced-console-log` module offers a wide range of configuration options t
 
 ### Core Configuration Options
 
-| **Option**             | **Type**  | **Default** | **Description**                                                                                                                            |
-| ---------------------- | --------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `mode`                 | `string`  | `"regular"` | Sets the logging mode. Possible values are `"regular"`, `"async"`, `"async-queue"`, and `"worker"`.                                        |
-| `logLevel`             | `number`  | `1`         | Sets the console [log level](log-levels.md). Accepts values from `0` (debug) to `5` (fatal).                                               |
-| `terminateOnFatal`     | `boolean` | `false`     | If `true`, terminates the current process upon a `fatal` message.                                                                          |
-| `includeTimestamps`    | `boolean` | `true`      | Determines whether to include timestamps in log messages.                                                                                  |
-| `includeMemoryUsage`   | `boolean` | `false`     | If `true`, includes memory usage information in log messages.                                                                              |
-| `generateReport`       | `boolean` | `false`     | If `true`, generates a summary report showing the number of times each log method was called.                                              |
-| `memoryCheckFrequency` | `number`  | `10`        | Defines the frequency of memory checks.                                                                                                    |
-| `memoryDisplayMode`    | `number`  | `1`         | Defines the format for memory usage display. (1 is `MB`, 2 is `%`, and 3 is both).                                                         |
-| `extraSpace`           | `boolean` | `false`     | If `true`, adds an extra space after each logging message.                                                                                 |
-| `enableTimers`         | `boolean` | `false`     | If `true`, enables timer methods. (`startTimer`, `stopTimer`, `getTimer`, etc.)                                                            |
-| `color`                | `object`  | `{}`        | Allows custom color configuration for log levels. See **[Example: Custom Colors](/examples/custom-colors.js)** for implementation details. |
+| **Option**             | **Type**  | **Default** | **Description**                                                                                     |
+| ---------------------- | --------- | ----------- | --------------------------------------------------------------------------------------------------- |
+| `mode`                 | `string`  | `"regular"` | Sets the logging mode. Possible values are `"regular"`, `"async"`, `"async-queue"`, and `"worker"`. |
+| `logLevel`             | `number`  | `1`         | Sets the console [log level](log-levels.md). Accepts values from `0` (debug) to `5` (fatal).        |
+| `terminateOnFatal`     | `boolean` | `false`     | If `true`, terminates the current process upon a `fatal` message.                                   |
+| `includeTimestamps`    | `boolean` | `true`      | Determines whether to include timestamps in log messages.                                           |
+| `includeMemoryUsage`   | `boolean` | `false`     | If `true`, includes memory usage information in log messages.                                       |
+| `generateReport`       | `boolean` | `false`     | If `true`, generates a summary report showing the number of times each log method was called.       |
+| `memoryCheckFrequency` | `number`  | `10`        | Defines the frequency of memory checks.                                                             |
+| `memoryDisplayMode`    | `number`  | `1`         | Defines the format for memory usage display. (1 is `MB`, 2 is `%`, and 3 is both).                  |
+| `extraSpace`           | `boolean` | `false`     | If `true`, adds an extra space after each logging message.                                          |
+| `enableTimers`         | `boolean` | `false`     | If `true`, enables timer methods. (`startTimer`, `stopTimer`, `getTimer`, etc.)                     |
+| `enableExitHandlers`   | `boolean` | `false`     | If `true`, automatically handles process exits, ensuring all logs are flushed before termination.   |
+| `workerScriptPath`     | `string`  | `null`      | Custom path for worker script when using `mode: "worker"`.                                          |
 
 ### Timestamp and Caller Information Configuration
 

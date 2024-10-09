@@ -32,7 +32,7 @@ You can extend ACL to send logs to third-party services (e.g., Elasticsearch, Lo
 class ServiceLogger extends ACL {
 	logWithColorAndCondition(color, condition, level, ...args) {
 		super.logWithColorAndCondition(color, condition, level, ...args);
-		// Custom logic to send logs to an external service
+		// Custom integration code to send logs to a third-party service
 	}
 }
 ```
@@ -54,8 +54,17 @@ class CustomHeaderLogger extends ACL {
 }
 ```
 
-### Extending ACL’s functionality allows you to implement features such as:
+### 4. Using `loadDynamicMethodsAndProperties`
 
-- Custom log formatting
-- Logging to multiple destinations
-- Advanced log aggregation and monitoring solutions
+The ACL class includes a powerful utility to dynamically load methods and properties from external classes. Use `loadDynamicMethodsAndProperties` to inject custom behaviors:
+
+```js
+class ExtendedACL extends ACL {
+	constructor(config) {
+		super(config);
+		this.loadDynamicMethodsAndProperties(CustomMethodsClass);
+	}
+}
+```
+
+By using `loadDynamicMethodsAndProperties`, you can easily integrate custom methods without modifying the base class.
