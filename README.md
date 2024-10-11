@@ -1,7 +1,8 @@
 # Advanced Console Log (ACL)
 
-[![Star on GitHub](https://img.shields.io/github/stars/samestrin/advanced-console-log?style=social)](https://github.com/samestrin/advanced-console-log/stargazers) [![Fork on GitHub](https://img.shields.io/github/forks/samestrin/advanced-console-log?style=social)](https://github.com/samestrin/advanced-console-log/network/members) [![Watch on GitHub](https://img.shields.io/github/watchers/samestrin/advanced-console-log?style=social)](https:
-![Version 0.0.5](https://img.shields.io/badge/Version-0.0.5-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Built with Node.js](https://img.shields.io/badge/Built%20with-Node.js-green)](https:
+[![Star on GitHub](https://img.shields.io/github/stars/samestrin/advanced-console-log?style=social)](https://github.com/samestrin/advanced-console-log/stargazers) [![Fork on GitHub](https://img.shields.io/github/forks/samestrin/advanced-console-log?style=social)](https://github.com/samestrin/advanced-console-log/network/members) [![Watch on GitHub](https://img.shields.io/github/watchers/samestrin/advanced-console-log?style=social)](https://github.com/samestrin/advanced-console-log/watchers)
+
+![Version 0.0.6](https://img.shields.io/badge/Version-0.0.6-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Built with Node.js](https://img.shields.io/badge/Built%20with-Node.js-green)](https://nodejs.org/)
 
 **Advanced Console Log (ACL)**, available as the `advanced-console-log` NPM package, is a lightweight logging module for Node.js applications. It supports console and file logging with various levels, colors, and additional features such as memory usage tracking and caller information.
 
