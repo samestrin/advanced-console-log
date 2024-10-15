@@ -81,7 +81,7 @@ const logger = ACL.getInstance({
 Memory usage tracking is an optional feature that can be enabled using the `includeMemoryUsage` configuration. If this information is not needed, disable memory tracking to reduce the computational cost associated with collecting and formatting memory statistics.
 
 - **`includeMemoryUsage`**: Set to `false` to disable memory usage tracking.
-- **`memoryCheckFrequency`**: If memory tracking is required, adjust the frequency of checks to reduce performance impact.
+- **`memoryUpdateInterval`**: If memory tracking is required, adjust the frequency of checks (in ms) to reduce performance impact. Use a larger value to limit the frequency of memory checks.
 
 #### Example:
 

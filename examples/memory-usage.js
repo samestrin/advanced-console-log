@@ -9,7 +9,7 @@ const ACL = require("../index");
 const logger = ACL.getInstance({
 	includeMemoryUsage: true,
 	memoryDisplayMode: 3, // Display both MB and percentage
-	memoryCheckFrequency: 1,
+	memoryUpdateInterval: 1000,
 });
 
 function main() {

@@ -29,7 +29,7 @@ class ACL {
 	 * @param {number} [config.logLevel=1] - Console log level (0 = debug, 5 = fatal).
 	 * @param {boolean} [config.includeTimestamps=true] - Include timestamps in logs.
 	 * @param {boolean} [config.includeMemoryUsage=false] - Include memory usage info.
-	 * @param {number} [config.memoryCheckFrequency=10] - Frequency of memory checks.
+	 * @param {number} [config.memoryUpdateInterval=1000] - Frequency of memory checks in ms
 	 * @param {number} [config.memoryDisplayMode=1] - Memory display format (1 = MB, 2 = %, 3 = both).
 	 * @param {boolean} [config.includeCallerInfo=false] - Include caller info in logs.
 	 * @param {number} [config.callerInfoLevel=2] - Log level for including caller info.
@@ -55,7 +55,6 @@ class ACL {
 		this.logLevel = typeof config.logLevel === "number" ? config.logLevel : 1;
 		this.includeTimestamps = config.includeTimestamps !== false;
 		this.includeMemoryUsage = config.includeMemoryUsage || false;
-		this.memoryCheckFrequency = config.memoryCheckFrequency ?? 10;
 		this.memoryDisplayMode = config.memoryDisplayMode ?? 1;
 		this.includeCallerInfo = config.includeCallerInfo || false;
 		this.callerInfoLevel = config.callerInfoLevel ?? 2;
@@ -79,6 +78,8 @@ class ACL {
 		this.generateReport = !!config.generateReport;
 		this.terminateOnFatal = !!config.terminateOnFatal;
 
+		this.memoryUpdateInterval = config.memoryUpdateInterval || 1000;
+
 		this.firstShown = false;
 		this.timers = {};
 		this.logEventCount = 0;
@@ -96,6 +97,7 @@ class ACL {
 
 		if (this.includeMemoryUsage) {
 			this._totalHeapSizeLimit = getTotalHeapSizeLimit();
+			this.startMemoryUsageUpdates();
 		}
 
 		// Lazy load FileLogger when file logging is needed
@@ -315,6 +317,10 @@ class ACL {
 		this.isClosing = true;
 
 		try {
+			if (includeMemoryUsage) {
+				this.stopMemoryUsageUpdates();
+			}
+
 			// Flush and close file logs if enabled
 			if (this.fileLogHandler) {
 				await this.flushFileLogs();
@@ -554,15 +560,25 @@ class ACL {
 	}
 
 	/**
-	 * Checks and updates the memory usage based on the configured frequency.
+	 * Starts a timer to update memory usage at a regular interval.
 	 */
-	updateMemoryUsage() {
-		if (
-			this.includeMemoryUsage &&
-			this.logEventCount % this.memoryCheckFrequency === 0
-		) {
+	startMemoryUsageUpdates() {
+		if (!this.memoryTimer && this.includeMemoryUsage) {
 			this.memoryUsage = this.getFormattedMemoryUsage();
-			this.logEventCount = 0;
+
+			this.memoryTimer = setInterval(() => {
+				this.memoryUsage = this.getFormattedMemoryUsage();
+			}, this.memoryUpdateInterval);
+		}
+	}
+
+	/**
+	 * Stops the memory usage updates when the logger is closed or memory tracking is disabled.
+	 */
+	stopMemoryUsageUpdates() {
+		if (this.memoryTimer) {
+			clearInterval(this.memoryTimer);
+			this.memoryTimer = null;
 		}
 	}
 
@@ -634,8 +650,6 @@ class ACL {
 			  } `
 			: "";
 
-		this.updateMemoryUsage();
-
 		const inlineCallerInfo =
 			this.includeInlineCallerInfo && level >= 1
 				? `${this.color.inlineCaller}${this.getInlineCallerInfo(
@@ -705,8 +719,6 @@ class ACL {
 						COLORS.RESET
 				  } `
 				: "";
-
-			this.updateMemoryUsage();
 
 			const inlineCallerInfo =
 				this.includeInlineCallerInfo && level >= 1

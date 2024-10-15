@@ -4,7 +4,7 @@
 
 ![Version 1.0.0](https://img.shields.io/badge/Version-1.0.0-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Built with Node.js](https://img.shields.io/badge/Built%20with-Node.js-green)](https://nodejs.org/)
 
-**Advanced Console Log (ACL)**, available as the `advanced-console-log` NPM package, is a lightweight logging module for Node.js applications. It supports console and file logging with various levels, colors, and additional features such as memory usage tracking and caller information.
+**Advanced Console Log (ACL)**, available as the `advanced-console-log` NPM package, is a lightweight logging module for Node.js applications. It supports console and file logging with various levels, colors, and additional features such as memory usage tracking and caller information. ACL prioritizes performance by using lazy loading, ensuring efficient resource management.
 
 ![Advanced Console Log](https://samestrin.github.io/media/advanced-console-log/advanced-console-log.png)
 
@@ -13,7 +13,7 @@
 ### Core Logging Features
 
 - **Advanced Configuration Options**: Provides extensive [configuration options](docs/configuration-options.md) such as memory display modes, caller info inclusion levels, and more.
-- **Multiple Log Levels**: Supports six logging levels (debug, log, info, warn, error, fatal) to categorize and prioritize log messages.
+- **Multiple Log Levels**: Supports six logging levels (`debug`, `log`, `info`, `warn`, `error`, `fatal`) to categorize and prioritize log messages.
 - **Console Logging**: Outputs log messages to the console with color-coded and formatted output based on log level.
 - **File Logging**: Optionally logs messages to a specified file, with separate control over the log level for file output.
 - **Asynchronous Logging Modes**: Supports multiple asynchronous logging modes ("async", "async-queue", "worker") for non-blocking operations in high-throughput environments.
@@ -28,9 +28,9 @@
 
 ### Advanced Information Tracking
 
-- **Caller Information**: Includes caller information (file, function, line, and column) in log messages based on log level and configuration.
-- **Inline Caller Information**: Displays inline caller information within log messages for quick debugging reference.
-- **Memory Usage Tracking**: Tracks and displays memory usage, either in MB or percentage format, based on configuration.
+- **Caller Information**: Includes caller information (file, function, line, and column) in log messages based on log level and configuration. (2 modes available)
+- **Inline Caller Information**: Displays inline caller information within log messages for quick debugging reference. (3 modes available)
+- **Memory Usage Tracking**: Tracks and displays memory usage, either in MB or percentage format, based on configuration. (Uses color to provide a visual warning as usage increases)
 
 ### Performance Measurement
 

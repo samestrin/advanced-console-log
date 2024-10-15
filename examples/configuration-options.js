@@ -11,6 +11,7 @@ const logger = ACL.getInstance({
 	outputFileLogLevel: 2, // Set file log level
 	includeTimestamps: true, // Include timestamps in log messages
 	includeMemoryUsage: true, // Include memory usage information
+	memoryUpdateInterval: 1000,
 	memoryDisplayMode: 1, // Display memory usage in MB
 	includeCallerInfo: true, // Include caller information
 	callerInfoLevel: 2, // Include caller info for log level 2 and above

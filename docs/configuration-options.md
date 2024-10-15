@@ -14,7 +14,7 @@ The `advanced-console-log` module offers a wide range of configuration options t
 | `includeTimestamps`    | `boolean` | `true`      | Determines whether to include timestamps in log messages.                                           |
 | `includeMemoryUsage`   | `boolean` | `false`     | If `true`, includes memory usage information in log messages.                                       |
 | `generateReport`       | `boolean` | `false`     | If `true`, generates a summary report showing the number of times each log method was called.       |
-| `memoryCheckFrequency` | `number`  | `10`        | Defines the frequency of memory checks.                                                             |
+| `memoryUpdateInterval` | `number`  | `1000`      | Defines the frequency of memory checks in ms.                                                       |
 | `memoryDisplayMode`    | `number`  | `1`         | Defines the format for memory usage display. (1 is `MB`, 2 is `%`, and 3 is both).                  |
 | `extraSpace`           | `boolean` | `false`     | If `true`, adds an extra space after each logging message.                                          |
 | `enableTimers`         | `boolean` | `false`     | If `true`, enables timer methods. (`startTimer`, `stopTimer`, `getTimer`, etc.)                     |
