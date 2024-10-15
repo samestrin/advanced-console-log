@@ -50,9 +50,11 @@ function getMemoryUsagePercentage(totalHeapSizeLimit) {
  * @returns {string} - The color code for the memory usage.
  */
 function getMemoryUsageColor(freePercentage) {
-	if (freePercentage >= 75) return COLORS.LIGHT_GRAY;
-	if (freePercentage >= 50) return COLORS.LIGHT_MAGENTA;
-	if (freePercentage >= 25) return COLORS.LIGHT_RED;
+	if (freePercentage >= 80) return COLORS.WHITE;
+	if (freePercentage >= 70) return COLORS.YELLOW;
+	if (freePercentage >= 60) return COLORS.ORANGE;
+	if (freePercentage >= 50) return COLORS.LIGHT_RED;
+
 	return COLORS.RED;
 }
 
@@ -70,11 +72,11 @@ function getFormattedMemoryUsage(totalHeapSizeLimit, memoryDisplayMode) {
 
 	switch (memoryDisplayMode) {
 		case 1:
-			return `${color}[${memoryInMB} MB Free]${COLORS.RESET} `;
+			return `${COLORS.WHITE}[${color}${memoryInMB} MB Free${COLORS.WHITE}]${COLORS.RESET} `;
 		case 2:
-			return `${color}[${memoryInPercent}% Free]${COLORS.RESET} `;
+			return `${COLORS.WHITE}[${color}${memoryInPercent}% Free${COLORS.WHITE}]${COLORS.RESET} `;
 		case 3:
-			return `${color}[${memoryInMB} MB Free / ${memoryInPercent}% Free]${COLORS.RESET} `;
+			return `${COLORS.WHITE}[${color}${memoryInMB} MB Free / ${memoryInPercent}% Free${COLORS.WHITE}]${COLORS.RESET} `;
 		default:
 			return "";
 	}

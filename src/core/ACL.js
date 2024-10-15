@@ -73,6 +73,7 @@ class ACL {
 			fatal: config.color?.fatal || COLORS.MAGENTA,
 			caller: config.color?.caller || COLORS.LIGHT_MAGENTA,
 			inlineCaller: COLORS.LIGHT_CYAN,
+			position: COLORS.CYAN,
 		};
 		this.space = config.extraSpace ? "\n" : "";
 		this.generateReport = !!config.generateReport;
@@ -511,9 +512,9 @@ class ACL {
 				case 1:
 					return `${relativeFilePath}:`;
 				case 2:
-					return `${relativeFilePath} (${lineNumber}, ${columnNumber}):`;
+					return `${relativeFilePath} ${this.color.position}(${lineNumber}, ${columnNumber})${this.color.inlineCaller}:`;
 				case 3:
-					return `${relativeFilePath} (${lineNumber}, ${columnNumber}) > ${callerFunction}:`;
+					return `${relativeFilePath} ${this.color.position}(${lineNumber}, ${columnNumber})${this.color.inlineCaller} > ${callerFunction}:`;
 				default:
 					return "";
 			}

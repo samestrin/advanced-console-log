@@ -22,7 +22,10 @@
 		"advanced",
 		"logging",
 		"file",
-		"logging"
+		"logging",
+		"async-logging",
+		"worker",
+		"async"
 	],
 	"author": "Sam Estrin",
 	"license": "MIT",
