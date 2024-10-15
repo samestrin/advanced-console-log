@@ -144,6 +144,33 @@ class ACL {
 		registry.register(this, { cleanup: () => this.close() });
 	}
 
+	/**
+	 * Dynamically loads methods and properties from the provided utility class into this instance.
+	 * @param {class} SupportClass - Class containing methods and properties to be loaded.
+	 */
+	loadMethodsAndProperties(SupportClass) {
+		const supportClass = new SupportClass();
+
+		// Get all properties and methods from the utility class, including inherited ones
+		Object.getOwnPropertyNames(SupportClass.prototype).forEach(
+			(propertyName) => {
+				if (propertyName !== "constructor") {
+					// Check if it's a method and bind it
+					if (typeof supportClass[propertyName] === "function") {
+						this[propertyName] = supportClass[propertyName].bind(this);
+					}
+				}
+			}
+		);
+
+		// Get all instance variables from the utility class
+		Object.keys(supportClass).forEach((variableName) => {
+			if (typeof supportClass[variableName] !== "function") {
+				this[variableName] = supportClass[variableName];
+			}
+		});
+	}
+
 	_initializeReportGenerator() {
 		if (!ReportGenerator) {
 			ReportGenerator = require("./ReportGenerator");
@@ -482,11 +509,11 @@ class ACL {
 			// Format based on the specified level
 			switch (level) {
 				case 1:
-					return `  ${relativeFilePath}:`;
+					return `${relativeFilePath}:`;
 				case 2:
-					return `  ${relativeFilePath} (${lineNumber}, ${columnNumber}):`;
+					return `${relativeFilePath} (${lineNumber}, ${columnNumber}):`;
 				case 3:
-					return `  ${relativeFilePath} (${lineNumber}, ${columnNumber}) > ${callerFunction}:`;
+					return `${relativeFilePath} (${lineNumber}, ${columnNumber}) > ${callerFunction}:`;
 				default:
 					return "";
 			}
@@ -545,21 +572,11 @@ class ACL {
 	 * @returns {string} The formatted caller information to be included in the log.
 	 */
 	getFormattedCallerInfo(level) {
-		let callerInfo = "";
-
-		// Inline caller info
-		if (this.includeInlineCallerInfo && level >= this.inlineCallerInfoLevel) {
-			callerInfo += `${this.color.inlineCaller}${this.getInlineCallerInfo(
-				this.inlineCallerInfoLevel
-			)}${COLORS.RESET} `;
-		}
-
-		// Regular caller info
 		if (this.includeCallerInfo && level >= this.callerInfoLevel) {
-			callerInfo += this.getCallerInfo();
+			return this.getCallerInfo();
 		}
 
-		return callerInfo;
+		return "";
 	}
 
 	getLogLevelName(level) {

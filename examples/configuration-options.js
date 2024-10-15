@@ -4,7 +4,6 @@
  */
 
 const ACL = require("../index");
-
 // Create an instance of ACL with custom configuration
 const logger = ACL.getInstance({
 	logLevel: 1, // Set console log level

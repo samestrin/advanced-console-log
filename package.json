@@ -1,11 +1,11 @@
 {
 	"name": "advanced-console-log",
-	"version": "0.0.6",
+	"version": "1.0.0",
 	"description": "Advanced Console Log (ACL), available as the `advanced-console-log` NPM package, is a lightweight logging module for Node.js applications. It supports console and file logging with various levels, colors, and additional features such as memory usage tracking and caller information.",
 	"main": "index.js",
 	"directories": {
 		"doc": "docs",
-		"lib": "lib"
+		"example": "examples"
 	},
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
