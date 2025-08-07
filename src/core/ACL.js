@@ -317,7 +317,7 @@ class ACL {
 		this.isClosing = true;
 
 		try {
-			if (includeMemoryUsage) {
+			if (this.includeMemoryUsage) {
 				this.stopMemoryUsageUpdates();
 			}
 
