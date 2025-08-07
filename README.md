@@ -2,7 +2,7 @@
 
 [![Star on GitHub](https://img.shields.io/github/stars/samestrin/advanced-console-log?style=social)](https://github.com/samestrin/advanced-console-log/stargazers) [![Fork on GitHub](https://img.shields.io/github/forks/samestrin/advanced-console-log?style=social)](https://github.com/samestrin/advanced-console-log/network/members) [![Watch on GitHub](https://img.shields.io/github/watchers/samestrin/advanced-console-log?style=social)](https://github.com/samestrin/advanced-console-log/watchers)
 
-![Version 1.0.1](https://img.shields.io/badge/Version-1.0.1-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Built with Node.js](https://img.shields.io/badge/Built%20with-Node.js-green)](https://nodejs.org/)
+![Version 1.1.0](https://img.shields.io/badge/Version-1.1.0-blue) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Built with Node.js](https://img.shields.io/badge/Built%20with-Node.js-green)](https://nodejs.org/)
 
 **Advanced Console Log (ACL)**, available as the `advanced-console-log` NPM package, is a lightweight logging module for Node.js applications. It supports console and file logging with various levels, colors, and additional features such as memory usage tracking and caller information. ACL prioritizes performance by using lazy loading, ensuring efficient resource management.
 
